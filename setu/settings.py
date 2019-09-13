@@ -64,9 +64,9 @@ COOKIES_ENABLED = True
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'setu.pipelines.SetuPipeline': 300,
-# }
+ITEM_PIPELINES = {
+    'setu.pipelines.SetuPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -88,3 +88,10 @@ COOKIES_ENABLED = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# 日志级别 CRITICAL, ERROR, WARNING, INFO, DEBUG
+LOG_LEVEL = 'WARNING'
+
+# MongoDB
+MONGO_URI = 'mongodb://localhost/dev'
+MONGO_DB = 'dev'
