@@ -16,10 +16,20 @@ class SetuItem(scrapy.Item):
 
 class LightItem(scrapy.Item):
 
-    # 封面数据
+    # 基本数据
     title = scrapy.Field()
     uptime = scrapy.Field()
     des = scrapy.Field()
     category = scrapy.Field()
     status = scrapy.Field()
     wordCount = scrapy.Field()
+
+    # 小说图片
+    image = scrapy.Field()
+    image_url = scrapy.Field()
+    image_path = scrapy.Field()
+
+    # 详情
+    more_des = scrapy.Field()
+    chapter_name = scrapy.Field()
+    chapter_content = scrapy.Field()

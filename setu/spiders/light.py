@@ -12,7 +12,14 @@ class LightSpider(scrapy.Spider):
     def parse(self, response):
         soup = BeautifulSoup(response.text, 'lxml')
         spins = soup.find_all('span', class_="uptime")
+        images = soup.find_all('dt')
         item = LightItem()
+        """ for image in images:
+            # url
+            print(image.a.img['_src'])
+            # name
+            print(image.a.img['alt']) """
+
         for spin in spins:
             category = spin.parent.parent.next_sibling.next_sibling.span.contents[0]
             if category != '轻小说の' and category != '轻の小说':
@@ -23,4 +30,6 @@ class LightSpider(scrapy.Spider):
                 item['status'] = spin.parent.parent.next_sibling.next_sibling.span.next_sibling.next_sibling.contents[0]
                 item['wordCount'] = spin.parent.parent.next_sibling.next_sibling.find_all('span')[
                     2].contents[0]
+                item['image'] = spin.parent.parent.previous_sibling.previous_sibling.a.img['alt']
+                item['image_url'] = spin.parent.parent.previous_sibling.previous_sibling.a.img['_src']
                 yield item
