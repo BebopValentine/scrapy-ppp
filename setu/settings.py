@@ -95,3 +95,6 @@ LOG_LEVEL = 'WARNING'
 # MongoDB
 MONGO_URI = 'mongodb://localhost/dev'
 MONGO_DB = 'dev'
+
+# 项目
+COMMANDS_MODULE = 'setu.commands'
