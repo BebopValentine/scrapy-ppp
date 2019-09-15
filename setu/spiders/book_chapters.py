@@ -54,7 +54,9 @@ class BookChaptersSpider(scrapy.Spider):
             info['chapter_id'] = bok['href'].split('/')[-1].split('.')[-2]
             boks_list.append(info)
 
-        book_chapter['book_id'] = the_list[0]['href'].split('/')[-1][:-5]
+        book_chapter['book_name'] = boks.find(
+            'div', class_='d_title').h1.string
+        book_chapter['book_id'] = boks.find('img')['src'].split('/')[-2]
         book_chapter['chapter_info'] = boks_list
 
         yield book_chapter

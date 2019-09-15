@@ -31,4 +31,5 @@ class BookChapters(scrapy.Item):
 
     # 章节
     book_id = scrapy.Field()
+    book_name = scrapy.Field()
     chapter_info = scrapy.Field()
