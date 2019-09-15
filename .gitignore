@@ -1,3 +1,7 @@
 .DS_Store
 .idea
 __pycache__
+SpiderKeeper.db
+project.egg-info
+*.egg
+build
