@@ -14,22 +14,21 @@ class SetuItem(scrapy.Item):
     pass
 
 
-class LightItem(scrapy.Item):
+class BookInfo(scrapy.Item):
 
-    # 基本数据
-    title = scrapy.Field()
-    uptime = scrapy.Field()
-    des = scrapy.Field()
-    category = scrapy.Field()
-    status = scrapy.Field()
-    wordCount = scrapy.Field()
+    # 基本信息
+    book_id = scrapy.Field()
+    book_name = scrapy.Field()
+    book_simple_des = scrapy.Field()
+    book_category = scrapy.Field()
+    book_word_count = scrapy.Field()
 
-    # 小说图片
-    image = scrapy.Field()
+    # 封面
     image_url = scrapy.Field()
-    image_path = scrapy.Field()
 
-    # 详情
-    more_des = scrapy.Field()
-    chapter_name = scrapy.Field()
-    chapter_content = scrapy.Field()
+
+class BookChapters(scrapy.Item):
+
+    # 章节
+    book_id = scrapy.Field()
+    chapter_info = scrapy.Field()
