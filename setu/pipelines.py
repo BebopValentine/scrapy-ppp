@@ -6,6 +6,7 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import pymongo
+from setu.items import BookInfo, BookChapters
 
 
 class SetuPipeline(object):
@@ -25,8 +26,14 @@ class SetuPipeline(object):
         self.db = self.client[self.mongo_db]
 
     def process_item(self, item, spider):
-        self.db['lights'].insert(dict(item))
-        return item
+        if isinstance(item, BookInfo):
+            # 处理书籍
+            self.db['books'].insert(dict(item))
+            return item
+        elif isinstance(item, BookChapters):
+            # 处理章节
+            self.db['chapters'].insert(dict(item))
+            return item
 
     def close_spider(self, spider):
         self.client.close()
