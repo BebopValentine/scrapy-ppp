@@ -36,12 +36,12 @@ class BookInfoSpider(scrapy.Spider):
 
                 # 排除半吊子作者写的网文
                 if book_category != '轻小说の' and book_category != '轻の小说':
-                    book_info['book_id'] = book.a['href'].split('/')[-2]
-                    book_info['book_name'] = book.a.img['alt']
-                    book_info['book_simple_des'] = book.find_all(
+                    book_info['bookId'] = book.a['href'].split('/')[-2]
+                    book_info['bookName'] = book.a.img['alt']
+                    book_info['bookSimpleDes'] = book.find_all(
                         'dd', class_='book_des')[0].string
-                    book_info['book_category'] = book_category
-                    book_info['book_word_count'] = book.find_all('dd', class_='book_other')[
+                    book_info['bookCategory'] = book_category
+                    book_info['bookWordCount'] = book.find_all('dd', class_='book_other')[
                         0].find_all('span')[-1].string
-                    book_info['image_url'] = book.a.img['_src']
+                    book_info['imageUrl'] = book.a.img['_src']
                     yield book_info

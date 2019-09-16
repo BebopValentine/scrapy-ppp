@@ -54,9 +54,24 @@ class BookChaptersSpider(scrapy.Spider):
             info['chapter_id'] = bok['href'].split('/')[-1].split('.')[-2]
             boks_list.append(info)
 
-        book_chapter['book_name'] = boks.find(
+        book_chapter['bookName'] = boks.find(
             'div', class_='d_title').h1.string
-        book_chapter['book_id'] = boks.find('img')['src'].split('/')[-2]
-        book_chapter['chapter_info'] = boks_list
+        book_chapter['bookId'] = boks.find('img')['src'].split('/')[-2]
+        book_chapter['chapterInfo'] = boks_list
+
+        rawIntro = boks.find('div', id='bookintro').p.contents
+        cookedIntro = []
+
+        for item in rawIntro:
+            sentence = ''
+            if type(item) is bs4.element.Tag:
+                pass
+            elif item[:1] == '\n':
+                sentence = item[1:]
+            else:
+                sentence = item
+            if sentence != '':
+                cookedIntro.append(sentence)
+        book_chapter['bookIntro'] = ''.join(cookedIntro)
 
         yield book_chapter

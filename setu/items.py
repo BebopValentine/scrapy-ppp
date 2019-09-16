@@ -17,19 +17,20 @@ class SetuItem(scrapy.Item):
 class BookInfo(scrapy.Item):
 
     # 基本信息
-    book_id = scrapy.Field()
-    book_name = scrapy.Field()
-    book_simple_des = scrapy.Field()
-    book_category = scrapy.Field()
-    book_word_count = scrapy.Field()
+    bookId = scrapy.Field()
+    bookName = scrapy.Field()
+    bookSimpleDes = scrapy.Field()
+    bookCategory = scrapy.Field()
+    bookWordCount = scrapy.Field()
 
     # 封面
-    image_url = scrapy.Field()
+    imageUrl = scrapy.Field()
 
 
 class BookChapters(scrapy.Item):
 
     # 章节
-    book_id = scrapy.Field()
-    book_name = scrapy.Field()
-    chapter_info = scrapy.Field()
+    bookId = scrapy.Field()
+    bookName = scrapy.Field()
+    bookIntro = scrapy.Field()
+    chapterInfo = scrapy.Field()
