@@ -34,3 +34,13 @@ class BookChapters(scrapy.Item):
     bookName = scrapy.Field()
     bookIntro = scrapy.Field()
     chapterInfo = scrapy.Field()
+
+
+class BookContents(scrapy.Item):
+
+    # 章节
+    bookId = scrapy.Field()
+    bookName = scrapy.Field()
+    chapterId = scrapy.Field()
+    chapterName = scrapy.Field()
+    chapterContent = scrapy.Field()
