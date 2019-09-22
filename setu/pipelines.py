@@ -28,15 +28,37 @@ class SetuPipeline(object):
     def process_item(self, item, spider):
         if isinstance(item, BookInfo):
             # 处理书籍
-            self.db['books'].insert(dict(item))
+            collection = self.db['books']
+            condition = {'bookName': item['bookName']}
+
+            queryRes = collection.find_one(condition)
+            if queryRes:
+                collection.update(condition, dict(item))
+            else:
+                collection.insert(dict(item))
             return item
         elif isinstance(item, BookChapters):
             # 处理章节
-            self.db['chapters'].insert(dict(item))
+            collection = self.db['chapters']
+            condition = {'bookName': item['bookName']}
+
+            queryRes = collection.find_one(condition)
+            if queryRes:
+                collection.update(condition, dict(item))
+            else:
+                collection.insert(dict(item))
             return item
+
         elif isinstance(item, BookContents):
             # 处理章节
-            self.db['contents'].insert(dict(item))
+            collection = self.db['contents']
+            condition = {'chapterName': item['chapterName']}
+
+            queryRes = collection.find_one(condition)
+            if queryRes:
+                collection.update(condition, dict(item))
+            else:
+                collection.insert(dict(item))
             return item
 
     def close_spider(self, spider):

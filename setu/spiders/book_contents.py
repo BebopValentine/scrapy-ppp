@@ -70,7 +70,8 @@ class BookChaptersSpider(scrapy.Spider):
         chapterName = response.meta['chapterName']
 
         tags = contents.find_all('br')
-        # TODO 彩图页中会出现问题
+
+        # 规避彩图页
         if len(tags) == 0:
             return
         container = response.meta['alreadyContent']
