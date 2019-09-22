@@ -7,6 +7,9 @@
 
 from scrapy import signals
 from fake_useragent import UserAgent
+import pymongo
+import random
+import requests
 
 
 class SetuSpiderMiddleware(object):
@@ -105,6 +108,45 @@ class SetuDownloaderMiddleware(object):
 
 
 class RandomUserAgentMiddleware(object):
+    # 随机 UA
     def process_request(self, request, spider):
         ua = UserAgent()
         request.headers['User-Agent'] = ua.random
+
+
+class RandomIpMiddleware(object):
+    # 随机代理 ip
+    def __init__(self, mongo_uri, mongo_db):
+        self.mongo_uri = mongo_uri
+        self.mongo_db = mongo_db
+        self.ip_container = []
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            mongo_uri=crawler.settings.get('MONGO_URI'),
+            mongo_db=crawler.settings.get('MONGO_DB')
+        )
+
+    def process_request(self, request, spider):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.mongo_db]
+        collection = self.db['ips']
+        self.ip_container = []
+
+        for i in collection.find():
+            self.ip_container.append(i)
+
+        index = random.randint(0, len(self.ip_container))
+        current_ip = self.ip_container[index]['theType'].lower() + \
+            '://' + self.ip_container[index]['ip'] + \
+            ':' + self.ip_container[index]['port']
+
+        response = requests.get('http://x23qb.com',
+                                proxies={self.ip_container[index]['theType']: current_ip})
+        #request.meta['proxy'] = 'http://1.197.203.163:9999'
+        """ if response.status_code == 200:
+            print(current_ip)
+            request.meta['proxy'] = current_ip
+        else:
+            request.meta['proxy'] = '' """
