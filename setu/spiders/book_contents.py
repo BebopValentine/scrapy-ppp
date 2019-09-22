@@ -70,18 +70,22 @@ class BookChaptersSpider(scrapy.Spider):
         chapterName = response.meta['chapterName']
 
         tags = contents.find_all('br')
+        # TODO 彩图页中会出现问题
+        if len(tags) == 0:
+            return
         container = response.meta['alreadyContent']
 
         for tag in tags:
             current_line = tag.previous_sibling
             if current_line != '\n' and type(current_line) is not bs4.element.Tag:
                 current_line = ''.join(current_line.split())
-            if type(current_line) is not bs4.element.Tag:
                 container.append(current_line)
-        try:
-            container.append(tags[-1].next_sibling)
-        except IndexError as e:
-            print(response)
+
+        if type(tags[-1].next_sibling) is not bs4.element.Tag:
+            try:
+                container.append(tags[-1].next_sibling)
+            except IndexError as e:
+                print(response)
 
         # 如果有下一页则继续爬取
         if container[-1] and type(container[-1]) is not bs4.element.NavigableString:
