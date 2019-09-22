@@ -44,3 +44,12 @@ class BookContents(scrapy.Item):
     chapterId = scrapy.Field()
     chapterName = scrapy.Field()
     chapterContent = scrapy.Field()
+
+
+class IpPool(scrapy.Item):
+
+    # 代理池
+    ip = scrapy.Field()
+    port = scrapy.Field()
+    theType = scrapy.Field()
+    server = scrapy.Field()

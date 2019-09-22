@@ -52,9 +52,11 @@ COOKIES_ENABLED = True
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    'setu.middlewares.SetuDownloaderMiddleware': 543,
-# }
+DOWNLOADER_MIDDLEWARES = {
+    'setu.middlewares.SetuDownloaderMiddleware': 543,
+    # 禁止系统的默认UA
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -90,7 +92,7 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # 日志级别 CRITICAL, ERROR, WARNING, INFO, DEBUG
-LOG_LEVEL = 'INFO'
+LOG_LEVEL = 'WARNING'
 
 # MongoDB
 MONGO_URI = 'mongodb://localhost/dev'
