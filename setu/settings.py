@@ -104,3 +104,6 @@ MONGO_DB = 'dev'
 
 # 项目
 COMMANDS_MODULE = 'setu.commands'
+
+# 下载延迟
+DOWNLOAD_DELAY = 2
