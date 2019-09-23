@@ -9,11 +9,11 @@ from setu.items import IpPool
 class IpPoolSpider(scrapy.Spider):
     name = 'ip_pool'
     allowed_domains = ['xicidaili.com']
-    start_urls = ['https://www.xicidaili.com/nn/']
+    start_urls = ['https://www.xicidaili.com/wt/']
 
     def __init__(self):
         self.max_page = ''
-        self.base_url = 'https://www.xicidaili.com/nn/'
+        self.base_url = 'https://www.xicidaili.com/wt/'
 
     def parse(self, response):
         page = BeautifulSoup(response.text, 'lxml')

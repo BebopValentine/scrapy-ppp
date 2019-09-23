@@ -111,7 +111,9 @@ class RandomUserAgentMiddleware(object):
     # 随机 UA
     def process_request(self, request, spider):
         ua = UserAgent()
-        request.headers['User-Agent'] = ua.random
+        current_ua = ua.random
+        print('当前使用的 User-Agent 为：' + current_ua)
+        request.headers['User-Agent'] = current_ua
 
 
 class RandomIpMiddleware(object):
@@ -136,17 +138,18 @@ class RandomIpMiddleware(object):
 
         for i in collection.find():
             self.ip_container.append(i)
+        print(self.ip_container)
+        print(len(self.ip_container))
 
-        index = random.randint(0, len(self.ip_container))
+        index = random.randint(0, len(self.ip_container) - 1)
         current_ip = self.ip_container[index]['theType'].lower() + \
             '://' + self.ip_container[index]['ip'] + \
             ':' + self.ip_container[index]['port']
 
         response = requests.get('http://x23qb.com',
                                 proxies={self.ip_container[index]['theType']: current_ip})
-        #request.meta['proxy'] = 'http://1.197.203.163:9999'
-        """ if response.status_code == 200:
-            print(current_ip)
-            request.meta['proxy'] = current_ip
-        else:
-            request.meta['proxy'] = '' """
+        if response.status_code == 200:
+            print('当前使用的代理 ip 为：' + current_ip)
+            request.meta['http_proxy'] = current_ip
+        # else:
+            #request.meta['proxy'] = ''

@@ -58,6 +58,8 @@ DOWNLOADER_MIDDLEWARES = {
 
     # 禁止系统的默认UA
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+
+    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': None
 }
 
 # Enable or disable extensions
