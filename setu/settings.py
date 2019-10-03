@@ -106,9 +106,9 @@ MONGO_DB = 'dev'
 COMMANDS_MODULE = 'setu.commands'
 
 # 下载延迟
-DOWNLOAD_DELAY = 2
+# DOWNLOAD_DELAY = 2
 
 # 禁用cookies
 custom_settings = {
-    "COOKIES_ENABLED": True，
+    "COOKIES_ENABLED": True
 }

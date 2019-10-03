@@ -52,7 +52,8 @@ class SetuPipeline(object):
         elif isinstance(item, BookContents):
             # 处理章节
             collection = self.db['contents']
-            condition = {'chapterName': item['chapterName']}
+            condition = {
+                'chapterName': item['chapterName'], 'bookName': item['bookName']}
 
             queryRes = collection.find_one(condition)
             if queryRes:
