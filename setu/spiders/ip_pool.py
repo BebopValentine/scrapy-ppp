@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 import scrapy
+import time
+from datetime import datetime
 from scrapy.http import Request
 import requests
 from bs4 import BeautifulSoup
+
 from setu.items import IpPool
+
+from ..libs.emailSend import EmailSend
 
 
 class IpPoolSpider(scrapy.Spider):
@@ -16,6 +21,11 @@ class IpPoolSpider(scrapy.Spider):
         self.base_url = 'https://www.xicidaili.com/wt/'
 
     def parse(self, response):
+        email = EmailSend()
+        content = '爬虫启动时间：{}'.format(datetime.now())
+        email.send_text_email('shroudfzj@163.com',
+                              '524061832@qq.com', '爬虫启动', content)
+
         page = BeautifulSoup(response.text, 'lxml')
         self.max_page = page.find(
             'div', class_='pagination').find_all('a')[-2].string
@@ -41,11 +51,11 @@ class IpPoolSpider(scrapy.Spider):
                                     proxies={theType: url})
 
             if response.status_code == 200:
-                print(ip)
+                """ print(ip)
                 print(port)
                 print(server)
                 print(theType)
-                print('-'*20)
+                print('-'*20) """
 
                 ipPoolItem['ip'] = ip
                 ipPoolItem['port'] = port

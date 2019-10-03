@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
+import time
+from datetime import datetime
 import bs4
 from bs4 import BeautifulSoup
 from scrapy.http import Request
@@ -7,6 +9,8 @@ from scrapy.http import Request
 from setu.items import BookInfo
 from setu.items import BookChapters
 from setu.items import BookContents
+
+from ..libs.emailSend import EmailSend
 
 
 class BookChaptersSpider(scrapy.Spider):
@@ -21,6 +25,11 @@ class BookChaptersSpider(scrapy.Spider):
 
     def parse(self, response):
         # 获取各页面链接
+
+        email = EmailSend()
+        content = '爬虫启动时间：{}'.format(datetime.now())
+        email.send_text_email('shroudfzj@163.com',
+                              '524061832@qq.com', '爬虫启动', content)
 
         current_page = BeautifulSoup(response.text, 'lxml')
         current_page_num = current_page.find(
@@ -141,3 +150,10 @@ class BookChaptersSpider(scrapy.Spider):
         book_content['chapterId'] = response.meta['chapterId']
         book_content['chapterName'] = response.meta['chapterName']
         yield book_content
+
+    def closed(self, reason):
+        # 爬虫关闭的时候，会调用这个方法
+        email = EmailSend()
+        content = '爬虫关闭时间：{}'.format(datetime.now())
+        email.send_text_email('shroudfzj@163.com',
+                              '524061832@qq.com', '爬虫结束', content)
