@@ -25,11 +25,10 @@ class BookChaptersSpider(scrapy.Spider):
 
     def parse(self, response):
         # 获取各页面链接
-
-        email = EmailSend()
+        """ email = EmailSend()
         content = '爬虫启动时间：{}'.format(datetime.now())
         email.send_text_email('shroudfzj@163.com',
-                              '524061832@qq.com', '爬虫启动', content)
+                              '524061832@qq.com', '爬虫启动', content) """
 
         current_page = BeautifulSoup(response.text, 'lxml')
         current_page_num = current_page.find(
@@ -151,9 +150,10 @@ class BookChaptersSpider(scrapy.Spider):
         book_content['chapterName'] = response.meta['chapterName']
         yield book_content
 
-    def closed(self, reason):
+
+"""     def closed(self, reason):
         # 爬虫关闭的时候，会调用这个方法
         email = EmailSend()
         content = '爬虫关闭时间：{}'.format(datetime.now())
         email.send_text_email('shroudfzj@163.com',
-                              '524061832@qq.com', '爬虫结束', content)
+                              '524061832@qq.com', '爬虫结束', content) """

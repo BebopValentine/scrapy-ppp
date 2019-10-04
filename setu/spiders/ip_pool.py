@@ -21,10 +21,10 @@ class IpPoolSpider(scrapy.Spider):
         self.base_url = 'https://www.xicidaili.com/wt/'
 
     def parse(self, response):
-        email = EmailSend()
+        """ email = EmailSend()
         content = '爬虫启动时间：{}'.format(datetime.now())
         email.send_text_email('shroudfzj@163.com',
-                              '524061832@qq.com', '爬虫启动', content)
+                              '524061832@qq.com', '爬虫启动', content) """
 
         page = BeautifulSoup(response.text, 'lxml')
         self.max_page = page.find(
