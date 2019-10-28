@@ -6,7 +6,7 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import pymongo
-from setu.items import BookInfo, BookChapters, BookContents, IpPool
+from setu.items import BookInfo, BookChapters, BookContents, IpPool, ChengduTenancy
 
 
 class SetuPipeline(object):
@@ -66,6 +66,18 @@ class SetuPipeline(object):
             # 代理池
             collection = self.db['ips']
             condition = {'ip': item['ip']}
+
+            queryRes = collection.find_one(condition)
+            if queryRes:
+                collection.update(condition, dict(item))
+            else:
+                collection.insert(dict(item))
+            return item
+
+        elif isinstance(item, ChengduTenancy):
+            # 代理池
+            collection = self.db['cdzf']
+            condition = {'title': item['title']}
 
             queryRes = collection.find_one(condition)
             if queryRes:
