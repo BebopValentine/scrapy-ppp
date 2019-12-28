@@ -96,10 +96,10 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # 日志级别 CRITICAL, ERROR, WARNING, INFO, DEBUG
-LOG_LEVEL = 'DEBUG'
+LOG_LEVEL = 'INFO'
 
 # MongoDB
-MONGO_URI = 'mongodb://localhost/dev'
+MONGO_URI = 'mongodb://118.31.33.69:27017/dev'
 MONGO_DB = 'dev'
 
 # 项目

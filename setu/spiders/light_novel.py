@@ -143,6 +143,7 @@ class BookChaptersSpider(scrapy.Spider):
             next_page = self.content_base_url + \
                 contents.find('p', class_='mlfy_page').find_all(
                     'a')[-1]['href'][1:]
+            print("组合出的文章下一页地址："+next_page)
             yield Request(next_page, meta={'bookContents': book_content, 'chapterId': chapterId, 'chapterName': chapterName, 'alreadyContent': container}, callback=self.parse_content)
 
         book_content['chapterContent'] = container
