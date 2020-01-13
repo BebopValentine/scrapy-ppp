@@ -32,10 +32,12 @@ class BookChaptersSpider(scrapy.Spider):
 
         current_page = BeautifulSoup(response.text, 'lxml')
         current_page_num = current_page.find(
-            'div', class_='pagelink').span.string.split('/')[0]
+            'div', class_='pagelink').span.string.split('/')[1]
+
+        print('-------------'+current_page_num)
 
         # * 为测试不放开页面限制
-        for item in range(1, 2):
+        for item in range(1, int(current_page_num)):
             next_page = self.base_url + str(item) + '/'
             yield Request(next_page, callback=self.parse_page)
 
